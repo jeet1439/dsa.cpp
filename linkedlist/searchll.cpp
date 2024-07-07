@@ -87,27 +87,34 @@ public:
         }
        cout << "NULL" <<endl; 
     }
-
-    void pop_front(){
-        if(head == NULL){
-            cout << "ll is empty";
-        }
-
+    int  searchItr(int key){
+        int idx =0;
         Node*temp = head;
-        head = head->next;
-
-        temp->next=NULL;
-        delete temp;
-    }
-
-    void pop_back(){
-        Node*temp  = head;
-        while(temp->next->next != NULL){
-        temp = temp->next;
+        while(temp!=NULL){
+            if(temp->data == key){
+                return idx;
+            }
+            temp = temp->next;
+            idx++;
         }
-        temp->next = NULL;
-        delete tail;
-        tail = temp;
+        return -1;
+    }
+    int searchRec(int key){
+        return helper(head, key);
+    }
+    int helper(Node*temp, int key){ //temp is head for each call
+        if(temp == NULL){
+            return -1;
+        }
+        if(temp->data == key){
+            return 0;
+        }
+        int idx = helper(temp->next, key);
+    
+    if(idx == -1){
+        return -1;
+    }
+    return idx+1;
     }
 };
 
@@ -120,10 +127,9 @@ int main()
     ll.push_front(1);
     ll.push_back(4);
     ll.push_back(5);
-    ll.position(7,2);
-    ll.pop_front();
-    ll.pop_back();
     ll.print_list();
+    cout << "element at " << ll.searchRec(4) << " no index" << endl;
+    
 
     return 0;
 }
