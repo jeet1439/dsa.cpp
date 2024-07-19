@@ -109,7 +109,7 @@ Node *mergeSort(Node*head){
     Node*rightHead = splitAtMid(head);
     Node *left = mergeSort(head);
     Node *right = mergeSort(rightHead);
-    merge(left, left);
+    return merge(left, right);
 }
 int main(){
     list<int>ll;
